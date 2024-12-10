@@ -2,17 +2,19 @@
 Simple script that interacts with a BloodHound CE API to post user-generated (custom) Cypher queries to be used within the BloodHound CE web app. The script will parse a JSON file containing the queries and post them to a BloodHound CE API. 
 
 ## ⚠️ Important
-You will need to [obtain API credentials](https://support.bloodhoundenterprise.io/hc/en-us/articles/11311053342619-Working-with-the-BloodHound-API#h_01HQBFQX7EE8SZHPPFF0KMQ6NG) from within the application before using this script.
+You will need to [obtain API credentials](https://support.bloodhoundenterprise.io/hc/en-us/articles/11311053342619-Working-with-the-BloodHound-API#h_01HQBFQX7EE8SZHPPFF0KMQ6NG) from within the application or credentials for a user with access to upload queries to use this script.
 
-You have two options for implementing the credentials for use in the script:
-- Pass them on the command line with the `--id` and `--key` arguments.
+You have three options for implementing the credentials for use in the script:
+- Pass API credentials on the command line with the `--id` and `--key` arguments.
+- Pass the user and password in plaintext with the `--user` and `--pass` arguments.
 - Modify the script and place them in the provided hard-coded variables.
 
 If the command line arguments for the API credentials are supplied, those will take precendence over the hard-coded variables.
 
 ### Other Notes
 - The API endpoint is rate limited to 55 calls per second, which is why I implemented a short pause after the first 54 calls. You don't need to worry about this if you have less than 55 queries in your JSON file.
-- This may be obvious, but your queries can't have the same name. If they do, the API will respond with an error for that call. Name your queries with unique names to prevent any issues. 
+- This may be obvious, but your queries can't have the same name. If they do, the API will respond with an error for that call. Name your queries with unique names to prevent any issues.
+- If this script is re-run with the same name, it appears to be safe. i.e. it will not overwrite queries with the same name or crash.
 
 ## Arguments
 ```shell
